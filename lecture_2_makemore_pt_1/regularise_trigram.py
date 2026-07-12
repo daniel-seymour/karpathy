@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.23.13"
+__generated_with = "0.23.9"
 app = marimo.App(width="medium")
 
 
@@ -194,18 +194,18 @@ def _(dev_words, evaluate_trigram, train_trigram, train_words):
     # 3. Loop through each value automatically
     for r in lambda_values:
         print(f"Training with reg_lambda = {r}...")
-    
+
         # Train the model
         W, _, _, _ = train_trigram(
-            train_words, 
-            epochs=100, 
-            learning_rate=36, 
+            train_words,
+            epochs=100,
+            learning_rate=36,
             reg_lambda=r
         )
-    
+
         # Evaluate immediately on the Dev Set
         dev_loss = evaluate_trigram(dev_words, W)
-    
+
         dev_loss_results[r] = dev_loss
         print(f"--> Dev Loss: {dev_loss:.4f}\n")
 

@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.23.13"
+__generated_with = "0.23.9"
 app = marimo.App(width="medium")
 
 
@@ -110,17 +110,23 @@ def _(F, stoi, torch, train_words):
             logits = xenc @ W
 
             # ------------------
-            # # Alternative without use of one hot encoding
+            # # Alternative without use of one hot encoding and using inefficient python loops
             # logits_alt = torch.zeros(X.shape[0], 27)
 
             # for i in range(X.shape[0]):
             #     for j in range(W.shape[1]): # iterate through cols of weight matrix
             #         logits_alt[i,j] = W[X[i],j] # go to the row in the weights matrix dictated by the element in X
 
-            # print(logits_alt)
-            # print(torch.allclose(logits, logits_alt))
+            # More efficient way
+            logits_alt = W[X]
+
+            print(logits_alt)
+            print(torch.allclose(logits, logits_alt))
+
+
             # ------------------
 
+            # next two lines are the softmax step to convert raw, possibly negative numbers, into probabilities
             counts = logits.exp()
             probs = counts / counts.sum(1, keepdims=True)
 
