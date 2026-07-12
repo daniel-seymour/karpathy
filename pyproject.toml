@@ -26,5 +26,5 @@ enabled = false
 extend-include = ["*.ipynb"]
 
 [tool.pyrefly]
-exclude = ["*.py", ".venv", ".git", ".ruff_cache"]
+exclude = ["**/*.py", ".venv", ".git", ".ruff_cache"]
 strict = true
