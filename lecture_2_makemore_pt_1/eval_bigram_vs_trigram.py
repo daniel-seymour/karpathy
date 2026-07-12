@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.23.9"
+__generated_with = "0.23.13"
 app = marimo.App(width="medium")
 
 
@@ -39,8 +39,8 @@ def _(random, words):
     n2 = int(0.9 * total_words)
 
     train_words = words[:n1]
-    dev_words   = words[n1:n2]
-    test_words  = words[n2:]
+    dev_words = words[n1:n2]
+    test_words = words[n2:]
 
     print(f"Total: {total_words}")
     print(f"Train: {len(train_words)} (80%)")
@@ -51,10 +51,12 @@ def _(random, words):
 
 @app.cell
 def _(words):
-    chars = sorted(list(set(''.join(words))))
-    stoi = {s:i+1 for i,s in enumerate(chars)} # reserve 0 for the start and stop character
-    stoi['.'] = 0
-    itos = {i:s for s,i in stoi.items()}
+    chars = sorted(list(set("".join(words))))
+    stoi = {
+        s: i + 1 for i, s in enumerate(chars)
+    }  # reserve 0 for the start and stop character
+    stoi["."] = 0
+    itos = {i: s for s, i in stoi.items()}
     return (stoi,)
 
 
@@ -87,8 +89,6 @@ def _(F, stoi, torch, train_words):
         print(f"Number of examples: {num}")
         return X, Y
 
-
-
     def train_bigram(train_words):
         X, Y = create_bigram_training_set(train_words)
 
@@ -98,15 +98,29 @@ def _(F, stoi, torch, train_words):
         W = torch.randn((27, 27), generator=g, requires_grad=True)
 
         # Gradient Descent Loop
-        epochs = 100
+        epochs = 1
         for k in range(epochs):
-
             # --- Forward pass ---
+
+            # One hot encoding
             # Convert X to one-hot encoding
             xenc = F.one_hot(X, num_classes=27).float()
 
             # Matrix multiplication: n x 27 @ 27 x 27 = n x 27
             logits = xenc @ W
+
+            # ------------------
+            # # Alternative without use of one hot encoding
+            # logits_alt = torch.zeros(X.shape[0], 27)
+
+            # for i in range(X.shape[0]):
+            #     for j in range(W.shape[1]): # iterate through cols of weight matrix
+            #         logits_alt[i,j] = W[X[i],j] # go to the row in the weights matrix dictated by the element in X
+
+            # print(logits_alt)
+            # print(torch.allclose(logits, logits_alt))
+            # ------------------
+
             counts = logits.exp()
             probs = counts / counts.sum(1, keepdims=True)
 
@@ -116,6 +130,14 @@ def _(F, stoi, torch, train_words):
                 -probs[torch.arange(Y.shape[0]), Y].log().mean()
                 + 0.01 * (W**2).mean()
             )
+
+            # ------------------
+            # Alternative loss calculation using F.cross_entropy
+            loss_alt = F.cross_entropy(logits, Y) + 0.01 * (W**2).mean()
+
+            print(loss_alt.item())
+            print(torch.isclose(loss, loss_alt).item())
+            # ------------------
 
             # --- Backward pass ---
             W.grad = None
@@ -174,7 +196,6 @@ def _(F, stoi, torch, train_words):
         # Gradient Descent Loop
         epochs = 100
         for k in range(epochs):
-
             # --- Forward pass ---
             # Convert X to one-hot encoding and flatten from [N, 2, 27] to [N, 54]
             xenc = F.one_hot(X, num_classes=27).float()
@@ -220,7 +241,9 @@ def _(F, W_bigram, create_bigram_training_set, dev_words, test_words, torch):
     def evaluate_bigram(dataset, W):
         X, Y = create_bigram_training_set(dataset)
 
-        with torch.no_grad(): # for reduced memory and safety net to ensure no training
+        with (
+            torch.no_grad()
+        ):  # for reduced memory and safety net to ensure no training
             # Forward pass
             xenc = F.one_hot(X, num_classes=27).float()
             logits = xenc @ W
@@ -244,7 +267,9 @@ def _(F, W_trigram, create_trigram_training_set, dev_words, test_words, torch):
     def evaluate_trigram(dataset, W):
         X, Y = create_trigram_training_set(dataset)
 
-        with torch.no_grad(): # for reduced memory and safety net to ensure no training
+        with (
+            torch.no_grad()
+        ):  # for reduced memory and safety net to ensure no training
             # Forward pass
             xenc = F.one_hot(X, num_classes=27).float()
             xenc_flattened = xenc.view(-1, 54)

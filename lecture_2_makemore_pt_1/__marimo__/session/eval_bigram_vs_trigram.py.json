@@ -1,0 +1,164 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.13",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "ee5dfad61910b9c1f7d1af66bc26194f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "0e9ca89156860b105d7f0ea15c76a57a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "951ed9807d6d272bb68e96a8d93eb5d0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"split-dataset\">Split dataset</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "8f5acedc989c1bb8ab83247130c6605c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Total: 32033\nTrain: 25626 (80%)\nDev:   3203 (10%)\nTest:  3204 (10%)\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "3422dd01231c81878b0302135efbffd7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "0e9414d072712a7692c1cd17db3e0e07",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"train-bigram\">Train Bigram</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "59fdefd99dd06a7333f1c4f53ebeead5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Number of examples: 182625\n3.7675130367279053\nTrue\nFinal loss after 1 epochs: 3.7675\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "3ae38e09e8092370f2dabc8414a69c73",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"train-trigram\">Train Trigram</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "22a3fc32bfe07a9be392216e7afa4872",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "a1ed7f6c0f0970cc1fb9e1737740625e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"evaluate-and-compare-the-bigram-and-trigram-models-on-the-dev-and-test-splits\">Evaluate and compare the bigram and trigram models on the dev and test splits</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "caa8ca60cbf9be9ccbb5eb2bcfec20bc",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "99c261cee356d9b430498c5b20f2131f",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "fc2811b326d1ec5045f79dd3bc4cee3b",
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
