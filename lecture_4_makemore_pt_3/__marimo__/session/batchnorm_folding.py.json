@@ -1,0 +1,200 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.13",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "4bcaf58a6d8817f99f23305c18ee3454",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "d8e508a1a2ef3acc6c332f83c0718d6c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "application/json": "[\"emma\", \"olivia\", \"ava\", \"isabella\", \"sophia\", \"charlotte\", \"mia\", \"amelia\"]"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "2ca1d7739a871f28a245fd8b115e8fbf",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "{1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h', 9: 'i', 10: 'j', 11: 'k', 12: 'l', 13: 'm', 14: 'n', 15: 'o', 16: 'p', 17: 'q', 18: 'r', 19: 's', 20: 't', 21: 'u', 22: 'v', 23: 'w', 24: 'x', 25: 'y', 26: 'z', 0: '.'}\n27\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "839b3bff985ebdb7b1d40c5200254985",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "torch.Size([182625, 3]) torch.Size([182625])\ntorch.Size([22655, 3]) torch.Size([22655])\ntorch.Size([22866, 3]) torch.Size([22866])\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "6e5b49f4c57aaa5eb1cf7473996f4368",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "23670\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "PKri",
+      "code_hash": "93d18195c7df85baa69ecd931a5d71f5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "      0/  20000: 4.6088\n  10000/  20000: 1.9829\nFinal: 2.1422\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "Xref",
+      "code_hash": "c574a70989dc444b85288ad225316797",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "37b3e5d5750d9213aa850b2e400ce845",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"maths-for-how-to-fold-in-the-batchnorm-beta-and-gamma\">Maths for how to fold in the BatchNorm beta and gamma</h1>\n<span class=\"paragraph\">We have an intial linear layer: <marimo-tex class=\"arithmatex\">||(y = xW + b||)</marimo-tex></span>\n<span class=\"paragraph\">At inference time, the BatchNorm layer uses the running mean and variance and looks like:</span>\n<marimo-tex class=\"arithmatex\">||[\nz = \\gamma \\left(\\frac{y-\\mu}{\\sqrt{\\sigma^2 + \\epsilon}}\\right) + \\beta\n||]</marimo-tex><span class=\"paragraph\">We now substitute the linear layer into the BatchNorm:</span>\n<marimo-tex class=\"arithmatex\">||[\nz = \\gamma \\left(\\frac{xW+b-\\mu}{\\sqrt{\\sigma^2 + \\epsilon}}\\right) + \\beta\n||]</marimo-tex><span class=\"paragraph\">To fold this, we want to manipulate the equation so it looks like a new linear layer:</span>\n<marimo-tex class=\"arithmatex\">||[\nz = xW_{\\text{folded}} + b_{\\text{folded}}\n||]</marimo-tex><span class=\"paragraph\">We first isolate the scaling factor into a single term, S:</span>\n<span class=\"paragraph\">$<marimo-tex class=\"arithmatex\">||(S = \\frac{\\gamma}{\\sqrt{\\sigma^2 + \\epsilon}}||)</marimo-tex>$\u202c</span>\n<span class=\"paragraph\">This gives us:</span>\n<marimo-tex class=\"arithmatex\">||[z = S(xW+b-\\mu)+\\beta||]</marimo-tex><marimo-tex class=\"arithmatex\">||[z = x(SW) + S(b-\\mu)+\\beta||]</marimo-tex><span class=\"paragraph\">so <marimo-tex class=\"arithmatex\">||(W_{\\text{folded}}=Sw||)</marimo-tex> and <marimo-tex class=\"arithmatex\">||(b_{\\text{folded}}=S(b-\\mu)+\\beta||)</marimo-tex></span>\n<span class=\"paragraph\">Now we have <marimo-tex class=\"arithmatex\">||(W_{\\text{folded}}||)</marimo-tex> and <marimo-tex class=\"arithmatex\">||(b_{\\text{folded}}||)</marimo-tex>, we can delete the BatchNorm layer from inference because it's 'knowledge' is folded into the linear weights. This also has the advantage of speeding up inference because none of the BatchNorm operations are needed.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "b18ced6dc44820a57e7a3f19dd87b448",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "b2145aac704ce76dbe1ac7adac535b23",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<pre class='text-xs'>tensor([[1.3609, 2.0012, 2.3505, 1.1963, 1.2478, 1.5053, 1.3562, 1.3598, 1.1217,\n         1.6006, 1.2686, 1.3716, 1.2244, 1.8860, 1.3523, 1.1358, 2.5265, 0.9553,\n         0.9298, 1.6188, 1.3959, 2.3550, 1.5211, 1.9170, 1.2151, 1.6401, 1.5142,\n         1.0258, 1.2548, 1.2654, 0.9554, 1.3654, 1.9557, 1.4011, 1.5571, 1.6013,\n         1.4390, 1.7117, 1.4918, 1.6825, 1.6898, 1.4608, 1.3626, 1.1248, 1.0728,\n         1.4045, 1.1850, 1.6210, 1.1630, 1.2724, 2.0329, 1.5807, 1.2451, 1.5289,\n         1.2726, 1.2402, 0.9585, 1.7740, 1.0900, 0.9624, 1.4445, 1.3718, 1.1094,\n         1.1168, 1.2804, 2.3930, 1.6559, 1.1640, 1.7019, 1.6922, 1.5722, 1.9121,\n         1.1142, 1.6450, 1.4770, 1.6028, 1.5656, 1.2386, 1.8264, 1.0578, 1.5969,\n         1.1124, 1.1440, 0.8350, 1.1253, 1.6058, 1.8057, 1.5034, 1.1830, 2.2625,\n         1.3667, 1.4973, 1.4229, 1.6740, 1.2306, 1.3248, 1.3947, 1.4503, 1.2155,\n         1.4789]])</pre>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "5541ae1dded032011309dc5edf019a57",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Are the outputs identical? True\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "emfo",
+      "code_hash": null,
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    }
+  ]
+}
